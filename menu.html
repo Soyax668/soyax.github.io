@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Shop - Menu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to the Pizza Shop</h1>
+    <button onclick="window.location.href='website.html'">Logout</button>
+  </header>
+
+  <div class="menu">
+    <div class="pizza" id="pizza1">
+      <h2>Margherita</h2>
+      <img src="margherita.jpg" alt="Margherita Pizza">
+      <p>Classic cheese and tomato pizza.</p>
+      <p><strong>Price:</strong> 350</p>
+      <button onclick="addToCart('Margherita', 350)">Add to Cart</button>
+    </div>
+    <div class="pizza" id="pizza2">
+      <h2>Pepperoni</h2>
+      <img src="pepperoni.jpg" alt="Pepperoni Pizza">
+      <p>Spicy pepperoni with mozzarella.</p>
+      <p><strong>Price:</strong> 299</p>
+      <button onclick="addToCart('Pepperoni', 299)">Add to Cart</button>
+    </div>
+    <div class="pizza" id="pizza3">
+      <h2>Vegetarian</h2>
+      <img src="vegetarian.jpg" alt="Vegetarian Pizza">
+      <p>A healthy mix of veggies on a pizza.</p>
+      <p><strong>Price:</strong> 279</p>
+      <button onclick="addToCart('Vegetarian', 279)">Add to Cart</button>
+    </div>
+    <div class="pizza" id="pizza4">
+      <h2>BBQ Chicken</h2>
+      <img src="bbqpizza.jpg" alt="BBQ Chicken Pizza">
+      <p>Grilled chicken with BBQ sauce and red onions.</p>
+      <p><strong>Price:</strong> 299</p>
+      <button onclick="addToCart('BBQ Chicken', 299)">Add to Cart</button>
+    </div>
+    <div class="pizza" id="pizza5">
+      <h2>Hawaiian</h2>
+      <img src="hawaiian.jpg" alt="Hawaiian Pizza">
+      <p>Sweet pineapple with ham on a cheesy base.</p>
+      <p><strong>Price:</strong> 199</p>
+      <button onclick="addToCart('Hawaiian', 199)">Add to Cart</button>
+    </div>
+    <div class="pizza" id="pizza6">
+      <h2>Four Cheese</h2>
+      <img src="fourcheese.jpg" alt="Four Cheese Pizza">
+      <p>A delicious blend of mozzarella, cheddar, parmesan, and gorgonzola.</p>
+      <p><strong>Price:</strong> 250</p>
+      <button onclick="addToCart('Four Cheese', 250)">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="cart">
+    <h3>Your Cart</h3>
+    <ul id="cart-list"></ul>
+    <p id="total-price"><strong>Total: $0.00</strong></p>
+    <button id="checkout-button">Checkout</button>
+  </div>
+
+  <script>
+    let cart = [];
+    let totalPrice = 0;
+
+    function addToCart(pizzaName, price) {
+      cart.push({ pizzaName, price });
+      totalPrice += price;
+      updateCart();
+      alert(`${pizzaName} has been added to your cart!`);
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cart-list');
+      const totalPriceElement = document.getElementById('total-price');
+      
+      cartList.innerHTML = '';
+      cart.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${item.pizzaName} - ₹${item.price.toFixed(2)}`;
+        cartList.appendChild(listItem);
+      });
+
+      totalPriceElement.textContent = `Total: ₹${totalPrice.toFixed(2)}`;
+    }
+
+    document.getElementById('checkout-button').addEventListener('click', function() {
+      if (cart.length > 0) {
+        alert("Your order has been placed. Thank you for ordering!");
+        cart = [];
+        totalPrice = 0;
+        updateCart();
+      } else {
+        alert("Your cart is empty! Please add some pizzas to your cart.");
+      }
+    });
+  </script>
+
+</body>
+</html>
